@@ -5,7 +5,7 @@ Hi All.
 numpy
 plotly
 
-Why not using matplotlib? from mpl_toolkits.mplot3d import Axes3D
+Why not use matplotlib? from mpl_toolkits.mplot3d import Axes3D
 
 
  # Use the package in Jupyter Notebook
