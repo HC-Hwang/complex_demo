@@ -150,21 +150,26 @@ def complex_3dplot(x_data, complex_data, real_color='blue', imag_color='red', li
 
     traces = []
 
+    #add real surface
     mesh = add_linesurface(x_data, complex_data.real, axis='y')
     mesh.update(opacity=0.8, color=real_color)
     traces.append(mesh)
     
+    #add imag surface
     mesh = add_linesurface(x_data, complex_data.imag, axis='z')
     mesh.update(opacity=0.8, color=imag_color)
     traces.append(mesh)
 
+    #add the line
     traces.append(go.Scatter3d(x=x_data, 
                                y=complex_data.imag, 
-                               z=complex_data.real, mode="lines", 
+                               z=complex_data.real, 
+        mode="lines", 
         line=dict(
-        color=line_color,
-        width=3
-    )))
+            color=line_color,
+            width=3
+        )
+    ))
 
     if to_plot:
         fig = go.Figure(data=traces, layout=go.Layout(
@@ -361,6 +366,7 @@ def example_FT_properties(**kwargs):
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 8, 2)
     fig.append_trace(trace[1], 8, 2)
+    fig.append_trace(trace[2], 8, 2)
     
     
     fig['layout'].update(title='Properties of Fourier Transform',
