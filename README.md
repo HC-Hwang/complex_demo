@@ -4,7 +4,7 @@ Hi all. complex_demo is a package originally designed for the class "Fourier Opt
 
 # Package dependence
 Python 2.7
-Python 3?
+Python >3.5.5
 numpy >1.14.0
 plotly >2.0.12
 
