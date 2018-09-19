@@ -127,12 +127,12 @@ def clean_value(complex_data):
     imag_amp = np.sum(np.abs(complex_data.imag))
     try:
         if real_amp > THRESHOLD * imag_amp:
-            print 'imag part is tiny and set to 0'
+            print('imag part is tiny and set to 0')
             complex_data_copy = copy.deepcopy(complex_data)
             complex_data_copy.imag *= 0
             return complex_data_copy
         elif imag_amp > THRESHOLD * real_amp:
-            print 'real part is tiny set to 0'
+            print ('real part is tiny set to 0')
             complex_data_copy = copy.deepcopy(complex_data)
             complex_data_copy.real *= 0
             return complex_data_copy
@@ -142,7 +142,7 @@ def clean_value(complex_data):
         return complex_data
 
 
-def complex_3dplot(x_data, complex_data, real_color='blue', imag_color='red', line_color='cyan', **kwargs):
+def complex_3dplot(x_data, complex_data, real_color='blue', imag_color='red', line_color='cyan', to_plot=True, **kwargs):
 
 
     #if np.iscomplex(complex_data[0]):
@@ -166,7 +166,7 @@ def complex_3dplot(x_data, complex_data, real_color='blue', imag_color='red', li
         width=3
     )))
 
-    if kwargs.get('plot'):
+    if to_plot:
         fig = go.Figure(data=traces, layout=go.Layout(
         showlegend=False,
         ))
@@ -179,7 +179,7 @@ def complex_3dplot(x_data, complex_data, real_color='blue', imag_color='red', li
         return traces
 
 
-def complex_3danimation(x_data, complex_data_list, changing_variable_list, real_color='blue', imag_color='red', line_color='cyan', **kwargs):
+def complex_3danimation(x_data, complex_data_list, changing_variable_list, real_color='blue', imag_color='red', line_color='cyan', to_plot=True, **kwargs):
     figure = {
     'data': [],
     'layout': {'xaxis': {'range': [-40, 40], 'autorange': False},
@@ -226,7 +226,7 @@ def complex_3danimation(x_data, complex_data_list, changing_variable_list, real_
     for i in range(len(changing_variable_list)):
         changing_var = changing_variable_list[i]
         frame = {'data': [], 'name': str(changing_var)}
-        data_dict = complex_3dplot(x_data, complex_data_list[i], real_color=real_color, imag_color=imag_color, line_color=line_color, return_traces=True)
+        data_dict = complex_3dplot(x_data, complex_data_list[i], real_color=real_color, imag_color=imag_color, line_color=line_color, to_plot=False, return_traces=True)
 
         if i == 0:
             figure['data'] = data_dict
@@ -252,14 +252,14 @@ def complex_3danimation(x_data, complex_data_list, changing_variable_list, real_
 
     figure['layout']['sliders'] = [sliders_dict]    
 
-    if kwargs.get('plot'):
+    if to_plot:
         if kwargs.get('filename'):
             plotly.offline.plot(figure, filename=kwargs['filename'])
         else:
             plotly.offline.iplot(figure)
 
 
-def example_FT_properties():
+def example_FT_properties(**kwargs):
     sigma = 10
     narray = 101
     
@@ -279,86 +279,86 @@ def example_FT_properties():
     x_input = np.linspace(-50, 50, 101)
     
     y = func1(x_input, 0., sigma)
-    trace = complex_3dplot(x_input, y, plot=False, return_traces=True)
+    trace = complex_3dplot(x_input, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 1, 1)
     fig.append_trace(trace[1], 1, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
-    trace = complex_3dplot(x_data, ft_y[0], plot=False, return_traces=True)
+    trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 1, 2)
     fig.append_trace(trace[1], 1, 2)
     
     y = func2(x_input, 0., sigma)
-    trace = complex_3dplot(x, y, plot=False, return_traces=True)
+    trace = complex_3dplot(x, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 2, 1)
     fig.append_trace(trace[1], 2, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
-    trace = complex_3dplot(x_data, ft_y[0], plot=False, return_traces=True)
+    trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 2, 2)
     fig.append_trace(trace[1], 2, 2)
     
     
     y = func1(x_input, 0., sigma) * 1j
-    trace = complex_3dplot(x_input, y, plot=False, return_traces=True)
+    trace = complex_3dplot(x_input, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 3, 1)
     fig.append_trace(trace[1], 3, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
-    trace = complex_3dplot(x_data, ft_y[0], plot=False, return_traces=True)
+    trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 3, 2)
     fig.append_trace(trace[1], 3, 2)
     
     y = func2(x_input, 0., sigma) * 1j
-    trace = complex_3dplot(x, y, plot=False, return_traces=True)
+    trace = complex_3dplot(x, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 4, 1)
     fig.append_trace(trace[1], 4, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
-    trace = complex_3dplot(x_data, ft_y[0], plot=False, return_traces=True)
+    trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 4, 2)
     fig.append_trace(trace[1], 4, 2)
     
     
     
     y = func1(x_input, 0., sigma) * (1. + 1j)
-    trace = complex_3dplot(x_input, y, plot=False, return_traces=True)
+    trace = complex_3dplot(x_input, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 5, 1)
     fig.append_trace(trace[1], 5, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
-    trace = complex_3dplot(x_data, ft_y[0], plot=False, return_traces=True)
+    trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 5, 2)
     fig.append_trace(trace[1], 5, 2)
     
     y = func2(x_input, 0., sigma) * (1. + 1j)
-    trace = complex_3dplot(x, y, plot=False, return_traces=True)
+    trace = complex_3dplot(x, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 6, 1)
     fig.append_trace(trace[1], 6, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
-    trace = complex_3dplot(x_data, ft_y[0], plot=False, return_traces=True)
+    trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 6, 2)
     fig.append_trace(trace[1], 6, 2)
     
     
     y = func1(x_input, 10., sigma)
-    trace = complex_3dplot(x_input, y, plot=False, return_traces=True)
+    trace = complex_3dplot(x_input, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 7, 1)
     fig.append_trace(trace[1], 7, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
-    trace = complex_3dplot(x_data, ft_y[0], plot=False, return_traces=True)
+    trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 7, 2)
     fig.append_trace(trace[1], 7, 2)
     
     y = func1(x_input, 10., sigma) * 1j
-    trace = complex_3dplot(x, y, plot=False, return_traces=True)
+    trace = complex_3dplot(x, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 8, 1)
     fig.append_trace(trace[1], 8, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
-    trace = complex_3dplot(x_data, ft_y[0], plot=False, return_traces=True)
+    trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 8, 2)
     fig.append_trace(trace[1], 8, 2)
     
@@ -366,4 +366,7 @@ def example_FT_properties():
     fig['layout'].update(title='Properties of Fourier Transform',
                          height=1600, width=600)
     
-    plotly.offline.iplot(fig)
+    if kwargs.get('filename'):
+        plotly.offline.plot(fig, filename=kwargs['filename'])
+    else:
+        plotly.offline.iplot(fig)
