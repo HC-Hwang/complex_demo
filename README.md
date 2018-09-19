@@ -8,7 +8,7 @@ Python 3?
 numpy >1.14.0
 plotly >2.0.12
 
-To run the tutorial, you may want to install [Jupyter notebook] (https://jupyter.org/install)
+To run the tutorial, you may want to install [Jupyter notebook](https://jupyter.org/install)
 
 Why not use matplotlib? from mpl_toolkits.mplot3d import Axes3D
 
