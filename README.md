@@ -14,7 +14,7 @@ Why not use matplotlib? from mpl_toolkits.mplot3d import Axes3D
 
 # Installation
 
-
+Clone? Or download the package?
 
 # How to run the tutorial?
 
