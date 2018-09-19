@@ -1,4 +1,4 @@
 *.pyc
 *.swp
 *.fits
-*.ipynb_checkpoints
+.ipynb_checkpoints/
