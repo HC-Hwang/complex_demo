@@ -3,9 +3,12 @@
 Hi all. complex_demo is a package originally designed for the class "Fourier Optics and Interferometry" at Johns Hopkins University. It aims to visualize the properties of Fourier transform. It can also be used as a simplied 3D python module.
 
 # Package dependence
-Python 2.7 and Python >3.5
+Python 2.7 or Python >3.5
+
 numpy >1.14.0
+
 plotly >2.0.12
+
 Ipython >5.5.0
 
 plotly can be installed through [Anaconda](https://anaconda.org/plotly/plotly):
@@ -17,8 +20,9 @@ or through [pip](https://plot.ly/python/getting-started):
 pip install plotly 
 ```
 
-
 To run the tutorial, you may want to install [Jupyter notebook](https://jupyter.org/install)
+
+It is important to update your Jupyter notebook because there is an [known issue](https://community.plot.ly/t/offline-mode-in-jupyter-notebook-shows-blank-graphs/1860/7) running plotly in an older version of Jupyter notebook.
 
 Why not use matplotlib? from mpl_toolkits.mplot3d import Axes3D
 
