@@ -38,4 +38,4 @@ jupyter notebook
 
 The package is still under developing and testing. If you find a bug, or bugs, or have any suggestions, feel free to contact us!
 
-development team: Hsiang-Chih Hwang (hchwang@jhu.edu), Anand Sivaramakrishnan, Po-Hsien Wang
+development team: [Hsiang-Chih Hwang](http://www.hwang-astro.me/) (hchwang@jhu.edu), Anand Sivaramakrishnan, Po-Hsien Wang
