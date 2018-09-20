@@ -96,7 +96,7 @@ def make1DGaussian(s, sigma, ctr=None, x0 = 0.):
     
     x = np.linspace(-ctr+0.5, s-ctr-0.5, s)
     
-    deg = -np.pi/180.0    # minus sign seen here ... any reason?  anand
+    deg = -np.pi/180.0  
 
     array = np.exp(-(x-x0)**2./(2.*sigma**2.))
     return x, array
@@ -127,12 +127,12 @@ def clean_value(complex_data):
     imag_amp = np.sum(np.abs(complex_data.imag))
     try:
         if real_amp > THRESHOLD * imag_amp:
-            print('imag part is tiny and set to 0')
+            #print('imag part is tiny and set to 0')
             complex_data_copy = copy.deepcopy(complex_data)
             complex_data_copy.imag *= 0
             return complex_data_copy
         elif imag_amp > THRESHOLD * real_amp:
-            print ('real part is tiny set to 0')
+            #print ('real part is tiny set to 0')
             complex_data_copy = copy.deepcopy(complex_data)
             complex_data_copy.real *= 0
             return complex_data_copy
@@ -264,14 +264,19 @@ def complex_3danimation(x_data, complex_data_list, changing_variable_list, real_
             plotly.offline.iplot(figure)
 
 
-def example_FT_properties(**kwargs):
+def example_FT_properties(plot_line=False, **kwargs):
     sigma = 10
     narray = 101
-    
-    fig = tools.make_subplots(rows=8, cols=2,
-                              specs=[[{'is_3d': True}, {'is_3d': True}] for i in range(8)])
+   
+    #define the figure object 
+    fig = tools.make_subplots(
+        rows=8, cols=2,
+        specs=[[{'is_3d': True}, {'is_3d': True}] for i in range(8)],
+        print_grid=False
+    )
     ft = matrixDFT.MatrixFourierTransform()
     
+    #subplot 1: real, even
     x, gaussian_array = make1DGaussian(narray, sigma, x0 = 10)
     gaussian_array = np.array([gaussian_array])
     ft_gaussian = ft.perform(gaussian_array, 9, (1, 81))
@@ -284,45 +289,64 @@ def example_FT_properties(**kwargs):
     x_input = np.linspace(-50, 50, 101)
     
     y = func1(x_input, 0., sigma)
+    #generate the complex_3dplot plot
     trace = complex_3dplot(x_input, y, to_plot=False, return_traces=True)
+    #put the 3d objects into the subplot
     fig.append_trace(trace[0], 1, 1)
     fig.append_trace(trace[1], 1, 1)
+    if plot_line:
+        fig.append_trace(trace[2], 1, 1)
+    
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 1, 2)
     fig.append_trace(trace[1], 1, 2)
+    if plot_line:
+        fig.append_trace(trace[2], 1, 2)
     
     y = func2(x_input, 0., sigma)
     trace = complex_3dplot(x, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 2, 1)
     fig.append_trace(trace[1], 2, 1)
+    if plot_line:
+        fig.append_trace(trace[2], 2, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 2, 2)
     fig.append_trace(trace[1], 2, 2)
+    if plot_line:
+        fig.append_trace(trace[2], 2, 2)
     
     
     y = func1(x_input, 0., sigma) * 1j
     trace = complex_3dplot(x_input, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 3, 1)
     fig.append_trace(trace[1], 3, 1)
+    if plot_line:
+        fig.append_trace(trace[2], 3, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 3, 2)
     fig.append_trace(trace[1], 3, 2)
+    if plot_line:
+        fig.append_trace(trace[2], 3, 2)
     
     y = func2(x_input, 0., sigma) * 1j
     trace = complex_3dplot(x, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 4, 1)
     fig.append_trace(trace[1], 4, 1)
+    if plot_line:
+        fig.append_trace(trace[2], 4, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 4, 2)
     fig.append_trace(trace[1], 4, 2)
+    if plot_line:
+        fig.append_trace(trace[2], 4, 2)
     
     
     
@@ -330,47 +354,62 @@ def example_FT_properties(**kwargs):
     trace = complex_3dplot(x_input, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 5, 1)
     fig.append_trace(trace[1], 5, 1)
+    if plot_line:
+        fig.append_trace(trace[2], 5, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 5, 2)
     fig.append_trace(trace[1], 5, 2)
+    if plot_line:
+        fig.append_trace(trace[2], 5, 2)
     
     y = func2(x_input, 0., sigma) * (1. + 1j)
     trace = complex_3dplot(x, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 6, 1)
     fig.append_trace(trace[1], 6, 1)
+    if plot_line:
+        fig.append_trace(trace[2], 6, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 6, 2)
     fig.append_trace(trace[1], 6, 2)
+    if plot_line:
+        fig.append_trace(trace[2], 6, 2)
     
     
     y = func1(x_input, 10., sigma)
     trace = complex_3dplot(x_input, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 7, 1)
     fig.append_trace(trace[1], 7, 1)
+    if plot_line:
+        fig.append_trace(trace[2], 7, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 7, 2)
     fig.append_trace(trace[1], 7, 2)
+    if plot_line:
+        fig.append_trace(trace[2], 7, 2)
     
     y = func1(x_input, 10., sigma) * 1j
     trace = complex_3dplot(x, y, to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 8, 1)
     fig.append_trace(trace[1], 8, 1)
+    if plot_line:
+        fig.append_trace(trace[2], 8, 1)
     
     ft_y = ft.perform(np.array([y]), 9, (1, 81))
     trace = complex_3dplot(x_data, ft_y[0], to_plot=False, return_traces=True)
     fig.append_trace(trace[0], 8, 2)
     fig.append_trace(trace[1], 8, 2)
-    fig.append_trace(trace[2], 8, 2)
+    if plot_line:
+        fig.append_trace(trace[2], 8, 2)
     
     
     fig['layout'].update(title='Properties of Fourier Transform',
-                         height=1600, width=600)
+                         height=1600, width=600, showlegend=False)
     
     if kwargs.get('filename'):
         plotly.offline.plot(fig, filename=kwargs['filename'])
