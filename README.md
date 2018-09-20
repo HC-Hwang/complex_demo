@@ -8,7 +8,10 @@ Python >3.5.5
 numpy >1.14.0
 plotly >2.0.12
 
-plotly can be installed through [Anaconda](https://anaconda.org/plotly/plotly).
+plotly can be installed through [Anaconda](https://anaconda.org/plotly/plotly):
+```
+conda install -c plotly plotly
+```
 
 To run the tutorial, you may want to install [Jupyter notebook](https://jupyter.org/install)
 
