@@ -12,6 +12,11 @@ plotly can be installed through [Anaconda](https://anaconda.org/plotly/plotly):
 ```
 conda install -c plotly plotly
 ```
+or through [pip](https://plot.ly/python/getting-started):
+```
+pip install plotly 
+```
+
 
 To run the tutorial, you may want to install [Jupyter notebook](https://jupyter.org/install)
 
