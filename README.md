@@ -3,10 +3,10 @@
 Hi all. complex_demo is a package originally designed for the class "Fourier Optics and Interferometry" at Johns Hopkins University. It aims to visualize the properties of Fourier transform. It can also be used as a simplied 3D python module.
 
 # Package dependence
-Python 2.7
-Python >3.5.5
+Python 2.7 and Python >3.5
 numpy >1.14.0
 plotly >2.0.12
+Ipython >5.5.0
 
 plotly can be installed through [Anaconda](https://anaconda.org/plotly/plotly):
 ```
